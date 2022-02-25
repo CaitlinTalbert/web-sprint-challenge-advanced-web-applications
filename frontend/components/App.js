@@ -35,20 +35,25 @@ export default function App() {
     // In any case, we should redirect the browser back to the login screen,
     // using the helper above.
     window.localStorage.removeItem("token");
-    navigate("/");
+    redirectToLogin();
   };
 
   const login = ({ username, password }) => {
+    setMessage("");
+    setSpinnerOn(true);
     axios
       .post(loginUrl, { username, password })
       .then((res) => {
         console.log(res);
         window.localStorage.setItem("token", res.data.token);
-        setMessage(JSON.stringify(res.data.message));
-        navigate("/articles");
+        setMessage(res.data.message);
+        redirectToArticles();
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setSpinnerOn(false);
       });
     // ✨ implement
     // We should flush the message state, turn on the spinner
@@ -91,8 +96,14 @@ export default function App() {
   };
 
   const updateArticle = ({ article_id, article }) => {
-    // ✨ implement
-    // You got this!
+    axiosWithAuth()
+      .put(`${articlesUrl}/${article_id}`, article)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const deleteArticle = (article_id) => {
@@ -127,7 +138,7 @@ export default function App() {
               <>
                 <ArticleForm
                   article={articles.find((art) => {
-                    return art.id == currentArticleId;
+                    return art.article_id == currentArticleId;
                   })}
                   postArticle={postArticle}
                   updateArticle={updateArticle}
