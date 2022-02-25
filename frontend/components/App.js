@@ -65,11 +65,13 @@ export default function App() {
   };
 
   const getArticles = () => {
+    setMessage("");
     axiosWithAuth()
       .get(articlesUrl)
       .then((res) => {
         console.log(res);
         setArticles(res.data.articles);
+        setMessage(res.data.message);
       })
       .catch((err) => {
         if (err.res.status == 401) {
