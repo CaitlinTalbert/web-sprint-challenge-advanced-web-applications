@@ -66,7 +66,11 @@ export default function App() {
         setArticles(res.data.articles);
       })
       .catch((err) => {
-        console.log(err);
+        if (err.res.status == 401) {
+          navigate("/");
+        } else {
+          console.log(err);
+        }
       });
 
     // ✨ implement
