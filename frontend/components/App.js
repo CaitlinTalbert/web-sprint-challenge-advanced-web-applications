@@ -113,11 +113,20 @@ export default function App() {
     // to inspect the response from the server.
   };
 
-  const updateArticle = (article_id, article) => {
+  const updateArticle = ({ article_id, article }) => {
+    setMessage("");
     axiosWithAuth()
       .put(`${articlesUrl}/${article_id}`, article)
       .then((res) => {
         console.log(res);
+        setMessage(res.data.message);
+        setArticles(
+          articles.map((art) => {
+            return art.article_id == article_id ? res.data.article : art;
+          })
+        );
+
+        setCurrentArticleId();
       })
       .catch((err) => {
         console.log(err);

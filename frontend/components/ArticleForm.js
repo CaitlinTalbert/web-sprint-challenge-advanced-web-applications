@@ -41,6 +41,11 @@ export default function ArticleForm(props) {
   const isDisabled = () => {
     // ✨ implement
     // Make sure the inputs have some values
+    if (values.title && values.text && values.topic) {
+      return false;
+    } else {
+      return true;
+    }
   };
 
   return (
@@ -72,7 +77,9 @@ export default function ArticleForm(props) {
         <button disabled={isDisabled()} id="submitArticle">
           Submit
         </button>
-        <button onClick={(evt) => currentArticleId()}>Cancel edit</button>
+        <button onClick={(evt) => setValues(initialFormValues)}>
+          Cancel edit
+        </button>
       </div>
     </form>
   );
