@@ -114,7 +114,7 @@ export default function App() {
   return (
     // ✨ fix the JSX: `Spinner`, `Message`, `LoginForm`, `ArticleForm` and `Articles` expect props ❗
     <React.StrictMode>
-      <Spinner />
+      <Spinner spinnerOn={spinnerOn} />
       <Message message={message} />
       <button id="logout" onClick={logout}>
         Logout from app
