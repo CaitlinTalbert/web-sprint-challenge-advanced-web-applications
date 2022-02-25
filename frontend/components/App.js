@@ -96,11 +96,13 @@ export default function App() {
   };
 
   const postArticle = (article) => {
+    setMessage("");
     axiosWithAuth()
       .post(articlesUrl, article)
       .then((res) => {
         console.log(res);
         setArticles(articles.concat(res.data.article));
+        setMessage(res.data.message);
       })
       .catch((err) => {
         console.log(err);
