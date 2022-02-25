@@ -125,13 +125,27 @@ export default function App() {
   };
 
   const deleteArticle = (article_id) => {
-    // ✨ implement
+    setMessage("");
+    axiosWithAuth()
+      .delete(`${articlesUrl}/${article_id}`)
+      .then((res) => {
+        console.log(res);
+        setMessage(res.data.message);
+        setArticles(
+          articles.filter((art) => {
+            return art.article_id != article_id;
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
     // ✨ fix the JSX: `Spinner`, `Message`, `LoginForm`, `ArticleForm` and `Articles` expect props ❗
     <React.StrictMode>
-      <Spinner spinnerOn={spinnerOn} />
+      <Spinner on={spinnerOn} />
       <Message message={message} />
       <button id="logout" onClick={logout}>
         Logout from app
