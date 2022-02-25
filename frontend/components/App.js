@@ -66,6 +66,7 @@ export default function App() {
 
   const getArticles = () => {
     setMessage("");
+    setSpinnerOn(true);
     axiosWithAuth()
       .get(articlesUrl)
       .then((res) => {
@@ -75,10 +76,13 @@ export default function App() {
       })
       .catch((err) => {
         if (err.res.status == 401) {
-          navigate("/");
+          redirectToLogin();
         } else {
           console.log(err);
         }
+      })
+      .finally(() => {
+        setSpinnerOn(false);
       });
 
     // ✨ implement
@@ -92,6 +96,15 @@ export default function App() {
   };
 
   const postArticle = (article) => {
+    axiosWithAuth()
+      .post(articlesUrl, article)
+      .then((res) => {
+        console.log(res);
+        setArticles(articles.concat(res.data.article));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     // ✨ implement
     // The flow is very similar to the `getArticles` function.
     // You'll know what to do! Use log statements or breakpoints
