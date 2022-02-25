@@ -10,3 +10,13 @@ test("sanity", () => {
 
 //props is on and off?
 //spinner id is "spinner"
+
+/** 
+test("spinner appears asynchonously after logging in", async () => {
+  render(<Spinner />);
+
+  let submit = await screen.findByText("Submit Credentials");
+  fireEvent.click(submit);
+  await screen.findByText("Please wait...");
+});
+*/
