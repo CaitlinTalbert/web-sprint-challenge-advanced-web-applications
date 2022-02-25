@@ -113,7 +113,7 @@ export default function App() {
     // to inspect the response from the server.
   };
 
-  const updateArticle = ({ article_id, article }) => {
+  const updateArticle = (article_id, article) => {
     axiosWithAuth()
       .put(`${articlesUrl}/${article_id}`, article)
       .then((res) => {
