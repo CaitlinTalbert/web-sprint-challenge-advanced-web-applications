@@ -21,11 +21,10 @@ export default function App() {
   const navigate = useNavigate();
   const redirectToLogin = () => {
     /* ✨ implement */
-    let navigate = useNavigate();
+    navigate("/");
   };
   const redirectToArticles = () => {
-    /* ✨ implement */
-    let navigate = useNavigate();
+    navigate("/articles");
   };
 
   const logout = () => {
@@ -44,7 +43,7 @@ export default function App() {
       .then((res) => {
         console.log(res);
         window.localStorage.setItem("token", res.data.token);
-        setMessage(res.data.message);
+        setMessage(JSON.stringify(res.data.message));
         navigate("/articles");
       })
       .catch((err) => {

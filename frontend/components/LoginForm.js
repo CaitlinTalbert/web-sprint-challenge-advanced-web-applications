@@ -30,14 +30,13 @@ export default function LoginForm(props) {
 
   return (
     <form id="loginForm" onSubmit={onSubmit}>
-      <h2 key={props.id}>Login</h2>
+      <h2>Login</h2>
       <input
         maxLength={20}
         value={values.username}
         onChange={onChange}
         placeholder="Enter username"
         id="username"
-        key={props.id}
       />
       <input
         maxLength={20}
@@ -45,9 +44,8 @@ export default function LoginForm(props) {
         onChange={onChange}
         placeholder="Enter password"
         id="password"
-        key={props.id}
       />
-      <button disabled={isDisabled()} id="submitCredentials" key={props.id}>
+      <button disabled={isDisabled()} id="submitCredentials">
         Submit credentials
       </button>
     </form>
