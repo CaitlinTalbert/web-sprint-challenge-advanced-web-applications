@@ -63,6 +63,7 @@ export default function App() {
       .get(articlesUrl)
       .then((res) => {
         console.log(res);
+        setArticles(res.data.articles);
       })
       .catch((err) => {
         console.log(err);
@@ -122,14 +123,14 @@ export default function App() {
               <>
                 <ArticleForm
                   article={articles.find((art) => {
-                    return art.id == article_id;
+                    return art.id == currentArticleId;
                   })}
                   postArticle={postArticle}
                   updateArticle={updateArticle}
                 />
                 <Articles
                   articles={articles}
-                  setArticles={setArticles}
+                  setCurrentArticleId={setCurrentArticleId}
                   getArticles={getArticles}
                   deleteArticle={deleteArticle}
                 />

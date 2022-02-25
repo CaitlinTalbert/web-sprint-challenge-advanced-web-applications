@@ -61,7 +61,7 @@ export default function ArticleForm(props) {
         <button disabled={isDisabled()} id="submitArticle">
           Submit
         </button>
-        <button onClick={(evt) => setArticleId()}>Cancel edit</button>
+        <button onClick={(evt) => setCurrentArticleId()}>Cancel edit</button>
       </div>
     </form>
   );
