@@ -45,7 +45,6 @@ export default function App() {
     axios
       .post(loginUrl, { username, password })
       .then((res) => {
-        console.log(res);
         window.localStorage.setItem("token", res.data.token);
         setMessage(res.data.message);
         redirectToArticles();
@@ -70,7 +69,6 @@ export default function App() {
     axiosWithAuth()
       .get(articlesUrl)
       .then((res) => {
-        console.log(res);
         setArticles(res.data.articles);
         setMessage(res.data.message);
       })
@@ -100,7 +98,6 @@ export default function App() {
     axiosWithAuth()
       .post(articlesUrl, article)
       .then((res) => {
-        console.log(res);
         setArticles(articles.concat(res.data.article));
         setMessage(res.data.message);
       })
@@ -115,39 +112,48 @@ export default function App() {
 
   const updateArticle = ({ article_id, article }) => {
     setMessage("");
+    setSpinnerOn(true);
     axiosWithAuth()
-      .put(`${articlesUrl}/${article_id}`, article)
+      .put(`${articlesUrl}/${article_id}`, {
+        title: article.title,
+        text: article.text,
+        topic: article.topic,
+      })
       .then((res) => {
-        console.log(res);
-        setMessage(res.data.message);
         setArticles(
           articles.map((art) => {
             return art.article_id == article_id ? res.data.article : art;
           })
         );
-
+        setMessage(res.data.message);
         setCurrentArticleId();
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setSpinnerOn(false);
       });
   };
 
   const deleteArticle = (article_id) => {
     setMessage("");
+    setSpinnerOn(true);
     axiosWithAuth()
       .delete(`${articlesUrl}/${article_id}`)
       .then((res) => {
-        console.log(res);
-        setMessage(res.data.message);
         setArticles(
           articles.filter((art) => {
             return art.article_id != article_id;
           })
         );
+        setMessage(res.data.message);
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setSpinnerOn(false);
       });
   };
 
