@@ -35,6 +35,7 @@ export default function App() {
     // In any case, we should redirect the browser back to the login screen,
     // using the helper above.
     window.localStorage.removeItem("token");
+    setMessage("Goodbye!");
     redirectToLogin();
   };
 
@@ -114,7 +115,7 @@ export default function App() {
     // ✨ fix the JSX: `Spinner`, `Message`, `LoginForm`, `ArticleForm` and `Articles` expect props ❗
     <React.StrictMode>
       <Spinner />
-      <Message />
+      <Message message={message} />
       <button id="logout" onClick={logout}>
         Logout from app
       </button>
